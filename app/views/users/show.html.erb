@@ -1,0 +1,30 @@
+<% provide(:title, @user.name) %>
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+    <% if @user.microposts.any? %>
+      <h3><%= pluralize @user.microposts_count, "Micropost" %></h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
+  <div>
+    <%=  form_for @micropost do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="field">
+          <%= f.text_area :content, size: "10x10", placeholder: "Compose new micropost..." %>
+        </div>
+        <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
